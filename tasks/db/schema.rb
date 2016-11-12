@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 20161107134106) do
     t.string   "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.boolean  "done"
   end
 
 end
