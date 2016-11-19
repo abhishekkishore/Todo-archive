@@ -14,3 +14,7 @@
 //= require jquery_ujs
 
 //= require angular
+//= require jquery.dataTables
+
+//= require DraggableDirective
+//= require DropTargetDirective

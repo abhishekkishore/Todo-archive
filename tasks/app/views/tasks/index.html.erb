@@ -1,15 +1,32 @@
 <script>
   angular.module('myApp', []).controller('myController', function ($scope, $location, $http) {
     $http.get('./tasks.json').then(function (response) {
+      alert('server call done');
       $scope.tasks = response.data;
+//      $('#task-table').dataTable({
+//        paging: false,
+//        filter: false,
+//        aoColumns:[
+//          {sTitle: "Name", mDataProp: "title"},
+//          {sTitle: "Description", mDataProp:"description"}
+//        ],
+//        aaData: $scope.tasks,
+//        fnRowCallback:function(row) {
+//          $(row).attr("dd-drop-target", "true");
+//          $(row).attr("dd-draggable", "true");
+//        }
+//      });
     });
-  });
+    $scope.moveToBox = function(){
+      $scope.$apply();
+    };
+  }).directive("ddDraggable", Draggable).directive("ddDropTarget", DropTarget);
 </script>
 <div ng-app="myApp" ng-controller="myController">
   <p id="notice"><%= notice %></p>
   <h1>Tasks</h1>
 
-  <table>
+  <table id="task-table">
     <thead>
     <tr>
       <th>Title</th>
@@ -18,10 +35,15 @@
     </tr>
     </thead>
 
-    <tr ng-repeat="x in tasks">
+    <tr dd-draggable="true" dd-drop-target="true" ng-repeat="x in tasks" itemid={{x.id}}>
       <td>{{x.title}}</td>
       <td>{{x.description}}</td>
     </tr>
+    <!--<div id="tasks">-->
+        <!--<div ng-repeat="x in tasks">-->
+          <!--<div dd-draggable="true" dd-drop-target="true"  class="item">{{x.title}}. {{x.description}}</div>-->
+        <!--</div>-->
+    <!--</div>-->
   </table>
 
   <br>
