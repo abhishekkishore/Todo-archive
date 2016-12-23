@@ -1,22 +1,19 @@
+<link rel="stylesheet" href="assets/bootstrap.css"></link>
+<link rel="stylesheet" href="assets/dataTables.bootstrap.css"></link>
 <script>
-  angular.module('myApp', []).controller('myController', function ($scope, $location, $http) {
-    $http.get('./tasks.json').then(function (response) {
-      alert('server call done');
-      $scope.tasks = response.data;
-//      $('#task-table').dataTable({
-//        paging: false,
-//        filter: false,
-//        aoColumns:[
-//          {sTitle: "Name", mDataProp: "title"},
-//          {sTitle: "Description", mDataProp:"description"}
-//        ],
-//        aaData: $scope.tasks,
-//        fnRowCallback:function(row) {
-//          $(row).attr("dd-drop-target", "true");
-//          $(row).attr("dd-draggable", "true");
-//        }
-//      });
-    });
+  angular.module('myApp', ['datatables','datatables.factory']).controller('myController', function ($scope, $location, $http, DTOptionsBuilder, DTColumnBuilder) {
+      $scope.dtOptions = {
+          "ajax": "./tasks.json",
+          "paging": false,
+          "bFilter": false
+      };
+      $scope.dtColumns = [DTColumnBuilder.newColumn('').renderWith(function(data, type, full){
+                            return '<span class="glyphicon glyphicon-align-justify">';
+                          }).notSortable(),
+                          DTColumnBuilder.newColumn('description').renderWith(function(data, type, full){
+                              return '<p style="font-size:10px">' + data +'</p>';
+                          }).notSortable()];
+//                          DTColumnBuilder.newColumn('description').withTitle('Description')];
     $scope.moveToBox = function(){
       $scope.$apply();
     };
@@ -26,19 +23,19 @@
   <p id="notice"><%= notice %></p>
   <h1>Tasks</h1>
 
-  <table id="task-table">
-    <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th colspan="3"></th>
-    </tr>
-    </thead>
+  <table id="task-table" datatable="" dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover">
+    <!--<thead>-->
+    <!--<tr>-->
+      <!--<th>Title</th>-->
+      <!--<th>Description</th>-->
+      <!--<th colspan="3"></th>-->
+    <!--</tr>-->
+    <!--</thead>-->
 
-    <tr dd-draggable="true" dd-drop-target="true" ng-repeat="x in tasks" itemid={{x.id}}>
-      <td>{{x.title}}</td>
-      <td>{{x.description}}</td>
-    </tr>
+    <!--<tr dd-draggable="true" dd-drop-target="true" ng-repeat="x in tasks" itemid={{x.id}}>-->
+      <!--<td>{{x.title}}</td>-->
+      <!--<td>{{x.description}}</td>-->
+    <!--</tr>-->
     <!--<div id="tasks">-->
         <!--<div ng-repeat="x in tasks">-->
           <!--<div dd-draggable="true" dd-drop-target="true"  class="item">{{x.title}}. {{x.description}}</div>-->

@@ -15,6 +15,8 @@
 
 //= require angular
 //= require jquery.dataTables
+//= require angular-datatables
+//= require angular-datatables.factory
 
 //= require DraggableDirective
 //= require DropTargetDirective
