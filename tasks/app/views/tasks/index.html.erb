@@ -1,22 +1,22 @@
 <link rel="stylesheet" href="assets/bootstrap.css"></link>
 <link rel="stylesheet" href="assets/dataTables.bootstrap.css"></link>
 <script>
-  angular.module('myApp', ['datatables','datatables.factory']).controller('myController', function ($scope, $location, $http, DTOptionsBuilder, DTColumnBuilder) {
+  angular.module('myApp', ['datatables','datatables.factory']).controller('myController', function ($scope, $location, $http, DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder) {
       $scope.dtOptions = {
           "ajax": "./tasks.json",
           "paging": false,
-          "bFilter": false
+          "bFilter": false,
+          "ordering": false
       };
       $scope.dtColumns = [DTColumnBuilder.newColumn('').renderWith(function(data, type, full){
-                            return '<span class="glyphicon glyphicon-align-justify">';
+                            return '<p><span class="glyphicon glyphicon-align-justify"/></p>';
                           }).notSortable(),
                           DTColumnBuilder.newColumn('description').renderWith(function(data, type, full){
-                              return '<p style="font-size:10px">' + data +'</p>';
+                              return '<p>' + data +'</p>';
                           }).notSortable()];
-//                          DTColumnBuilder.newColumn('description').withTitle('Description')];
-    $scope.moveToBox = function(){
-      $scope.$apply();
-    };
+      $scope.moveToBox = function(){
+        $scope.$apply();
+      };
   }).directive("ddDraggable", Draggable).directive("ddDropTarget", DropTarget);
 </script>
 <div ng-app="myApp" ng-controller="myController">
@@ -24,26 +24,8 @@
   <h1>Tasks</h1>
 
   <table id="task-table" datatable="" dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover">
-    <!--<thead>-->
-    <!--<tr>-->
-      <!--<th>Title</th>-->
-      <!--<th>Description</th>-->
-      <!--<th colspan="3"></th>-->
-    <!--</tr>-->
-    <!--</thead>-->
 
-    <!--<tr dd-draggable="true" dd-drop-target="true" ng-repeat="x in tasks" itemid={{x.id}}>-->
-      <!--<td>{{x.title}}</td>-->
-      <!--<td>{{x.description}}</td>-->
-    <!--</tr>-->
-    <!--<div id="tasks">-->
-        <!--<div ng-repeat="x in tasks">-->
-          <!--<div dd-draggable="true" dd-drop-target="true"  class="item">{{x.title}}. {{x.description}}</div>-->
-        <!--</div>-->
-    <!--</div>-->
   </table>
-
-  <br>
 
   <%= link_to 'New Task', new_task_path %>
 </div>
