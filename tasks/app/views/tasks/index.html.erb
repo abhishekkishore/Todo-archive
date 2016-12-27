@@ -1,23 +1,6 @@
 <link rel="stylesheet" href="assets/bootstrap.css"></link>
 <link rel="stylesheet" href="assets/dataTables.bootstrap.css"></link>
-<script>
-  angular.module('myApp', ['datatables','datatables.factory']).controller('myController', function ($scope, $location, $http, DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder) {
-      $scope.dtOptions = {
-          "ajax": "./tasks.json",
-          "paging": false,
-          "bFilter": false,
-          "ordering": false
-      };
-      $scope.dtColumns = [DTColumnBuilder.newColumn('').renderWith(function(data, type, full){
-                            return '<p><span class="glyphicon glyphicon-align-justify"/></p>';
-                          }).notSortable(),
-                          DTColumnBuilder.newColumn('description').renderWith(function(data, type, full){
-                              return '<p>' + data +'</p>';
-                          }).notSortable()];
-      $scope.moveToBox = function(){
-        $scope.$apply();
-      };
-  }).directive("ddDraggable", Draggable).directive("ddDropTarget", DropTarget);
+<script src="assets/IndexController">
 </script>
 <div ng-app="myApp" ng-controller="myController">
   <p id="notice"><%= notice %></p>
