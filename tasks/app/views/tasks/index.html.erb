@@ -2,13 +2,7 @@
 <link rel="stylesheet" href="assets/dataTables.bootstrap.css"></link>
 <script src="assets/IndexController">
 </script>
-<div ng-app="myApp" ng-controller="myController">
-  <p id="notice"><%= notice %></p>
-  <h1>Tasks</h1>
-
-  <table id="task-table" datatable="" dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover">
-
-  </table>
-
-  <%= link_to 'New Task', new_task_path %>
+<div ng-app="myApp" ng-controller="myController" class="pagecontainer">
+  <%= render :partial => "sidenav" %>
+  <%= render :partial => "index_main" %>
 </div>

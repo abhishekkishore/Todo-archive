@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161115155412) do
+ActiveRecord::Schema.define(version: 20161229145453) do
+
+  create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+  end
 
   create_table "tasks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "title"
@@ -19,6 +23,9 @@ ActiveRecord::Schema.define(version: 20161115155412) do
     t.datetime "updated_at",  null: false
     t.boolean  "done"
     t.datetime "due_at"
+    t.integer  "project_id"
+    t.index ["project_id"], name: "fk_rails_02e851e3b7", using: :btree
   end
 
+  add_foreign_key "tasks", "projects"
 end

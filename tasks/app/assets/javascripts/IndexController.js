@@ -11,11 +11,23 @@ angular.module('myApp', ['datatables','datatables.factory']).controller('myContr
     };
     $scope.dtColumns = [DTColumnBuilder.newColumn('').renderWith(function(data, type, full){
         return '<p><span class="glyphicon glyphicon-align-justify"/></p>';
-    }).notSortable(),
+        }).notSortable(),
         DTColumnBuilder.newColumn('description').renderWith(function(data, type, full){
             return '<p><span style="white-space: pre;">' + data +'</span></p>';
         }).notSortable()];
     $scope.moveToBox = function(){
         $scope.$apply();
     };
+    $('#add-project-row').on('click', function(data){
+        $('#add-project-table').hide();
+        $('#add-project-name-table').show();
+    });
+    $('#remove-project-name-span').on('click', function (data) {
+        $('#add-project-table').show();
+        $('#add-project-name-table').hide();
+    });
+    $('#add-project-name-submit').on('click', function(data){
+
+    });
+
 }).directive("ddDraggable", Draggable).directive("ddDropTarget", DropTarget);
