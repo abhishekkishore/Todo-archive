@@ -27,7 +27,20 @@ angular.module('myApp', ['datatables','datatables.factory']).controller('myContr
         $('#add-project-name-table').hide();
     });
     $('#add-project-name-submit').on('click', function(data){
-
+        var config = {
+            headers:{
+                'Content-Type':'application/json'
+            }
+        };
+        var data = {
+            'name': $('#add-project-name-text').val()
+        };
+        $http.post('./projects.json', data, config).then(function(response){
+            alert(response);
+        },
+        function(error){
+            alert(error);
+        });
     });
 
 }).directive("ddDraggable", Draggable).directive("ddDropTarget", DropTarget);
